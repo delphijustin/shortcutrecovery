@@ -8,7 +8,7 @@ goto end
 :xp
 set startMenuUser=\Start Menu
 set startMenuAll=%ALLUSERSPROFILE%\Desktop
-cd \Documents And Settings
+cd "\Documents And Settings"
 goto begin
 :vista
 set startMenuUser=\APPDATA\Roaming\Microsoft\Windows\Start Menu
