@@ -1,5 +1,4 @@
 @echo off
-set copying=
 if not "%1"=="" goto copyshortcuts
 echo delphijustin Industries ShortcutRecovery v1.0
 echo https://delphijustin.biz
@@ -8,7 +7,8 @@ set oldcd=%cd%
 %SystemDrive%
 if exist %SystemDrive%\Users\. goto vista
 if exist "%SystemDrive%\Documents And Settings\." goto xp
-echo Couldn't find start menu folder. This batch file runs on Windows 2000 or higher
+if exist "%WINDIR%\profiles\." goto nt4
+echo Couldn't find start menu folder.
 goto end
 :copyshortcuts
 echo Copying %1 Shortcuts...
@@ -17,6 +17,11 @@ for /R "%1\%StartMenuUser%" %%f in (*.lnk) do copy /Y "%%f" "%startMenuAll%\%smg
 for /R "%1\%StartMenuUser%" %%f in (*.pif) do copy /Y "%%f" "%startMenuAll%\%smgroup%\%1" > nul
 for /R "%1\%StartMenuUser%" %%f in (*.url) do copy /Y "%%f" "%startMenuAll%\%smgroup%\%1" > nul
 goto done
+:nt4
+set startMenuUser=\Start Menu
+set startMenuAll=%ALLUSERSPROFILE%\Start Menu\Programs
+cd "%Windir%\profiles"
+goto begin
 :xp
 set startMenuUser=\Start Menu
 set startMenuAll=%ALLUSERSPROFILE%\Start Menu\Programs
